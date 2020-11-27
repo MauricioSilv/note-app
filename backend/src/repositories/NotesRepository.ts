@@ -7,6 +7,10 @@ class NotesRepository {
     this.notes = [];
   }
 
+  public all(): Notes[] {
+    return this.notes;
+  }
+
   public create(title: string, describle: string, content: string): Notes {
     const note = new Notes(title, describle, content);
 
