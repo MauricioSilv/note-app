@@ -1,4 +1,10 @@
 import Notes from '../models/Notes';
+// Data Transfer Object
+interface CreateNoteDTO {
+  title: string;
+  describle: string;
+  content: string;
+}
 
 class NotesRepository {
   private notes: Notes[];
@@ -11,8 +17,8 @@ class NotesRepository {
     return this.notes;
   }
 
-  public create(title: string, describle: string, content: string): Notes {
-    const note = new Notes(title, describle, content);
+  public create({ title, describle, content }: CreateNoteDTO): Notes {
+    const note = new Notes({ title, describle, content });
 
     this.notes.push(note);
 

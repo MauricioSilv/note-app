@@ -13,7 +13,11 @@ notesRouter.get('/', (request, response) => {
 notesRouter.post('/', (request, response) => {
   const { title, describle, content } = request.body;
 
-  const note = notesRepository.create(title, describle, content);
+  const note = notesRepository.create({
+    title,
+    describle,
+    content,
+  });
 
   return response.json(note);
 });

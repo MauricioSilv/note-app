@@ -9,7 +9,7 @@ class Notes {
 
   content: string;
 
-  constructor(title: string, describle: string, content: string) {
+  constructor({ title, describle, content }: Omit<Notes, 'id'>) {
     this.id = uuid();
     this.title = title;
     this.describle = describle;
