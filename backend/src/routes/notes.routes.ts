@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import NotesRepository from '../repositories/NotesRepository';
+import CreateNoteService from '../services/CreateNoteService';
 
 const notesRouter = Router();
 const notesRepository = new NotesRepository();
@@ -11,15 +12,21 @@ notesRouter.get('/', (request, response) => {
 });
 
 notesRouter.post('/', (request, response) => {
-  const { title, describle, content } = request.body;
+  try {
+    const { title, describle, content } = request.body;
 
-  const note = notesRepository.create({
-    title,
-    describle,
-    content,
-  });
+    const createNotes = new CreateNoteService(notesRepository);
 
-  return response.json(note);
+    const note = createNotes.execute({
+      title,
+      describle,
+      content,
+    });
+
+    return response.json(note);
+  } catch (error) {
+    return response.status(400).json({ error: error.message });
+  }
 });
 
 export default notesRouter;
